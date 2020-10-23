@@ -1,11 +1,17 @@
 ﻿#include <iomanip>
 #include <iostream>
 #include<Windows.h>
+#include <conio.h>
+#include <string>
+
+using namespace std;
 
 void showMenu();
 int mainMenu();
+int writeNumbers();
+string writeWord();
 
-using namespace std;
+
 
 class cartoons
 {
@@ -14,7 +20,10 @@ private:
 	string name;
 	string country;
 public:
-	cartoons() {};
+	cartoons() 
+	{
+
+	};
 	cartoons(int rating, string name, string country);
 	void show();
 };
@@ -74,7 +83,7 @@ int mainMenu()
 	while (true)
 	{
 		showMenu();
-		cin >> choice;
+		choice = writeNumbers();
 		switch (choice)
 		{
 		case 1:
@@ -82,18 +91,19 @@ int mainMenu()
 			string name, country;
 			int rating;
 			cout << "Введите название мультика" << endl;
-			cin >> name;
+			name = writeWord();
 			cout << "Введите рейтинг мультика" << endl;
-			cin >> rating;
+			rating = writeNumbers();
+			//cin >> rating;
 			cout << "Введите страну производства мультика" << endl;
-			cin >> country;
+			country = writeWord();
 
 			bool ch;
-			cout << "Если аниме основано на манге, нажмите 1" << endl;
-			cin >> ch;
+			cout << "Если аниме не основано на манге, нажмите 0" << endl;
+			ch = writeNumbers();
 			string s;
 			cout << "Введи язык субтитров: " << endl;
-			cin >> s;
+			s= writeWord();
 			Manga = new anime(rating, name, country, ch, s);
 			Manga->show();
 			break;
@@ -104,18 +114,18 @@ int mainMenu()
 			string name, country;
 			int rating;
 			cout << "Введите название мультика" << endl;
-			cin >> name;
+			name=writeWord();
 			cout << "Введите рейтинг мультика" << endl;
-			cin >> rating;
+			rating = writeNumbers();
 			cout << "Введите страну производства мультика" << endl;
-			cin >> country;
+			country = writeWord();
 
 			bool ch;
 			string m;
 			cout << "Введите название композиции: " << endl;
-			cin >> m;
-			cout << "Если к музыке есть субтитры, нажмите 1" << endl;
-			cin >> ch;
+			m= writeWord();
+			cout << "Если к музыке нет субтитров, нажмите 0" << endl;
+			ch = writeNumbers();
 			Music = new musical(rating, name, country, m, ch);
 			Music->show();
 			break;
@@ -126,18 +136,18 @@ int mainMenu()
 			string name, country;
 			int rating;
 			cout << "Введите название мультика" << endl;
-			cin >> name;
+			name = writeWord();
 			cout << "Введите рейтинг мультика" << endl;
-			cin >> rating;
+			rating = writeNumbers();
 			cout << "Введите страну производства мультика" << endl;
-			cin >> country;
+			country = writeWord();
 
 			string t;
 			int a;
 			cout << "Введите тему мультика: " << endl;
-			cin >> t;
+			t = writeWord();
 			cout << "Введите ограничение по возрасту: " << endl;
-			cin >> a;
+			a = writeNumbers();
 			Dev = new developing(rating, name, country, a, t);
 			Dev->show();
 			break;
@@ -201,4 +211,64 @@ void developing::show()
 {
 	cout << "Возрастное ограничение: " << this->age << endl << "Тема: " << this->topic << endl;
 	cartoons::show();
+}
+
+int writeNumbers() 
+{
+	string numbers;
+	while (true) {
+		int key;
+		key = _getch();
+		if (key == 224) 
+		{
+			key = _getch();
+		}
+		else
+			if (key == 8) {
+				if (numbers.length() != 0) {
+					cout << '\b' << " " << '\b';
+					numbers.erase(numbers.length() - 1);
+				}
+			}
+			else
+				if (key == 13) break;
+				else
+					if (key >= '0' && key <= '9') {
+						numbers = numbers + (char)key;
+						cout << (char)key;
+					}
+	}
+	return stoi(numbers);
+}
+
+string writeWord() 
+{
+	string slovo;
+	while (true) {
+		int Knopka;
+		char sumbol;
+		Knopka = _getch();
+		if (Knopka == 224) {
+			Knopka = _getch();
+		}
+		else
+			if (Knopka == 8) {
+				if (slovo.length() != 0) {
+					cout << '\b' << " " <<'\b';
+					slovo.erase(slovo.length() - 1);
+				}
+			}
+			else
+				if (Knopka == 13) {
+					break;
+				}
+				else {
+					sumbol = (char)Knopka;
+					if ((sumbol >= 'a' && sumbol <= 'z') || (sumbol >= 'A' && sumbol <= 'Z')) {
+						slovo = slovo + sumbol;
+						cout << sumbol;
+					}
+				}
+	}
+	return slovo;
 }

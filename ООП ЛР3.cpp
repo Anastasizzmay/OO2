@@ -26,9 +26,10 @@ class Matrix
 {
 private:
 	int n;
+	int n2;
 	int** arr;
 public:
-	~Matrix(); //Диструктор
+	~Matrix(); 
 	Matrix(int);
 	Matrix(const Matrix&);
 	void shown();
@@ -102,15 +103,27 @@ void showMenu()
 }
 int mainMenu()
 {
-	int t, choice;
+	int t, choice, t2;
 	cout << endl << "\t Введите размер матрицы";
 	cin >> t;
-	Matrix f(t);
-	cout << "\tВведите элементы матрицы: ";
-	f.filll();
+	t2 = t;
 	cout << endl << "\tВведите кол-во координат вектора: ";
 	int temp;
 	cin >> temp;
+	if (t != temp)
+	{
+		if (temp > t)
+		{
+			temp = t;
+		}
+		else 
+		{
+			t = temp;
+		}
+	}
+	Matrix f(t);
+	cout << "\tВведите элементы матрицы: ";
+	f.filll();
 	vectorr vect(temp);
 	cout << "\tВведите элементы вектора: ";
 	vect.fill();
@@ -136,6 +149,17 @@ int mainMenu()
 		}
 		case 3:
 		{
+			if (t != temp)
+			{
+				if (temp > t)
+				{
+					
+				}
+				else
+				{
+
+				}
+			}
 			vectorr rec(temp);
 			MatrMultiply(t, f, vect, rec);
 			cout << endl << "\t";
